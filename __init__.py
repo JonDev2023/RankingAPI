@@ -2,8 +2,9 @@ import requests
 
 def get(database):
   rqst = requests.get(database)
-  if rqst:
+  if rqst.status_code == 200:
     return rqst, rqst.json()
-  else:
-    print('Error: The Server Creator make a error or you make a error')
-
+  if rqst.status_code == 404:
+    error = rqst
+    print('Error: Client Error while tring to make a request')
+    return error
